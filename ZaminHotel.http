@@ -1,0 +1,6 @@
+@ZaminHotel_HostAddress = http://localhost:5120
+
+GET {{ZaminHotel_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
