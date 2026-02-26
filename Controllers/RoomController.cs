@@ -8,7 +8,6 @@ namespace ZaminHotel.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
     public class RoomController : ControllerBase
     {
         private readonly IRoomService _roomService;
@@ -36,6 +35,7 @@ namespace ZaminHotel.Controllers
             return Ok(rooms);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Create(Room room)
         {
@@ -43,6 +43,7 @@ namespace ZaminHotel.Controllers
             return Ok();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, Room room)
         {
@@ -50,6 +51,7 @@ namespace ZaminHotel.Controllers
             return Ok();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
