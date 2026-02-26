@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+
 using ZaminHotel.Application.Interfaces;
 using ZaminHotel.Domain.Entities;
 
@@ -6,6 +8,7 @@ namespace ZaminHotel.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class RoomController : ControllerBase
     {
         private readonly IRoomService _roomService;
