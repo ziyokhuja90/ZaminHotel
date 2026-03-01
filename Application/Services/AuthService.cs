@@ -1,8 +1,10 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+
 using ZaminHotel.Application.Interfaces;
 using ZaminHotel.Domain.Entities;
 using ZaminHotel.Infrastructure.Data;
