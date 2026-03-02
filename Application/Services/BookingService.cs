@@ -24,25 +24,27 @@ namespace ZaminHotel.Application.Services
             CheckOut = DateTime.SpecifyKind(CheckOut, DateTimeKind.Utc);
             // Validate dates
             if (CheckOut <= CheckIn)
-                throw new Exception("Check-out date must be after check-in date");
+                throw new ArgumentException("Check-out date must be after check-in date");
 
             if (CheckIn.Date < DateTime.UtcNow.Date)
-                throw new Exception("Check-in date cannot be in the past");
+                throw new ArgumentException("Check-in date cannot be in the past");
 
             var nights = (CheckOut - CheckIn).Days;
 
             if (nights < 1)
-                throw new Exception("Booking must be for at least one night");
+                throw new InvalidOperationException("Booking must be for at least one night");
 
             // Check room availability
             var room = await _roomRepository.GetByIdAsync(roomId);
 
             if (room == null || room.IsDeleted)
-                throw new Exception("Room not found");
+                throw new KeyNotFoundException("Room not found");
 
             // check overlapping bookings
             var overlappingBooking = await _bookingRepository.GetOverlappingBookingAsync(roomId, CheckIn, CheckOut);
 
+            if (overlappingBooking.Any())
+                throw new InvalidOperationException("Room is not available...");
             // Calculate total price
             var totalPrice = room.PricePerNight * nights;
 
